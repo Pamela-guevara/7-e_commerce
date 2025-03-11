@@ -12,7 +12,6 @@ logging = format_logs('LinkedPaymentService')
 @dataclass
 class LinkedPayment:
     url = os.getenv('PAYMENTS_URL')
-    # payment = Payment()
 
     def registry_payment(self, product: Product, payment_method: str) -> None:
         
@@ -34,7 +33,6 @@ class LinkedPayment:
             self.payment = payment_schema.loads(res.content)
             cache.set(f"payment_{self.payment['id_payment']}", self.payment)
             logging.info(f"Payment id: {self.payment['id_payment']} registered successfully\n{self.payment}")
-            #self.payment = Payment()
         else:
             logging.error('Error in payment-ms')
             raise BaseException('Error in payment-ms')
@@ -54,7 +52,6 @@ class LinkedPayment:
         res = requests.put(f'{self.url}/delete/{id_num}')
         if res.status_code == 200:
             logging.info(f"Payment ID: {id_num} has been deleted")
-            #self.payment = Payment()
         else:
             logging.error('Error in payment-ms in compensation')
             raise BaseException('Error in payment-ms in compensation')

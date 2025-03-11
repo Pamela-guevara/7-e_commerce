@@ -27,8 +27,6 @@ class LinkedStocks():
             if stocks['quantity'] >= cart.quantity:
                 self.stock.quantity = stocks['quantity'] - cart.quantity
 
-                #body = stock_schema.dumps(self.stock)   # Variable que carga el nuevo stock
-
                 response = requests.put(f"{self.url}/update/{stocks['id_stock']}", json=stock_schema.dumps(self.stock))
                 data = stock_schema.loads(response.content)
 
@@ -51,8 +49,7 @@ class LinkedStocks():
     def return_product_to_stock(self) -> None:
         # No necesita hacer nada porque sí no hay stock, no se graba en la DB el retiro,
         # tampoco en el caché; pero necesitamos la compensación en el builder, por ésta razón,
-        # este método sólo retorna None
-        
+        # este método sólo retorna None 
         pass
 #--------------------------------------------------------------------------------------------------------
    
